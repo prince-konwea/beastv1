@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -26,12 +27,12 @@ const Hero = () => {
         <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
           Be one of 1,000 players in the world's biggest competition by MrBeast
         </p>
-        <a 
-          href="#application" 
+        <Link 
+          to="/apply"
           className="inline-flex items-center px-8 py-4 text-xl font-bold text-black bg-yellow-400 rounded-full hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105"
         >
           Apply Now <ArrowRight className="ml-2 h-6 w-6" />
-        </a>
+        </Link>
       </div>
 
       {/* Animated Arrow */}

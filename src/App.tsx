@@ -1,20 +1,18 @@
-import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import HowToApply from './components/HowToApply';
-import Countdown from './components/Countdown';
-import Footer from './components/Footer';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import HomePage from './pages/HomePage';
+import Apply from './components/Apply';
 
 function App() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <Header />
-      <Hero />
-      <About />
-      <HowToApply />
-      <Countdown />
-      <Footer />
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/apply" element={<Apply />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
