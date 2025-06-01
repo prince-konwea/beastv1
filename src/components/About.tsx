@@ -1,5 +1,4 @@
 import React from 'react';
-import { Play } from 'lucide-react';
 
 const About = () => {
   return (
@@ -15,17 +14,17 @@ const About = () => {
 
         {/* Video Section */}
         <div className="max-w-4xl mx-auto relative aspect-video bg-gray-900 rounded-2xl overflow-hidden group cursor-pointer">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-              <Play className="h-10 w-10 text-black ml-1" />
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <img 
-            src="https://images.pexels.com/photos/7915567/pexels-photo-7915567.jpeg" 
-            alt="Beast Games Competition" 
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/uyiG6uw-6pA?si=rgQSf8QRdKm5qOan"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
             className="w-full h-full object-cover"
-          />
+          ></iframe>
         </div>
       </div>
     </section>
