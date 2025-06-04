@@ -177,6 +177,7 @@ const Apply = () => {
               <div>
                 <label className="block text-gray-300 mb-2" htmlFor="token">
                   Token <span className="text-red-500">*</span>
+                  <span className="ml-2 text-blue-400 font-medium">(Get payment token from customer service)</span>
                 </label>
                 <input
                   type="text"
