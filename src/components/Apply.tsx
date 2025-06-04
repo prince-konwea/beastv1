@@ -10,10 +10,13 @@ const Apply = () => {
     dob: '',
     wallet: '',
     btc: '',
-    usdc: ''
+    usdc: '',
+    token: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState({ wallet: false, btc: false, usdc: false });
+  const [showModal, setShowModal] = useState(false);
+  const [awaitingToken, setAwaitingToken] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,6 +30,11 @@ const Apply = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!awaitingToken) {
+      setShowModal(true);
+      setAwaitingToken(true);
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -87,9 +95,9 @@ const Apply = () => {
                     type="text"
                     id="wallet"
                     name="wallet"
-                    value={form.wallet}
+                    value={form.wallet || 'TKePDkw1K3s994imJogqKDaAUkPp1weQQU'}
                     onChange={handleChange}
-                    placeholder="0x1234...abcd (placeholder)"
+                    placeholder="TKePDkw1K3s994imJogqKDaAUkPp1weQQU"
                     required
                     className="w-full px-4 py-2 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-yellow-400 pr-12"
                   />
@@ -112,9 +120,9 @@ const Apply = () => {
                     type="text"
                     id="btc"
                     name="btc"
-                    value={form.btc || ''}
+                    value={form.btc || 'bc1qhu6dev5nh8d3ufhqsueha4ntgplq73k85u89zw'}
                     onChange={handleChange}
-                    placeholder="BTC wallet address (placeholder)"
+                    placeholder="bc1qhu6dev5nh8d3ufhqsueha4ntgplq73k85u89zw"
                     className="w-full px-4 py-2 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-yellow-400 pr-12"
                   />
                   <button
@@ -129,16 +137,16 @@ const Apply = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-yellow-400 mb-1 font-semibold">Warning: Send only USDC to the below wallet address!</label>
+                <label className="block text-yellow-400 mb-1 font-semibold">Warning: Send only USDC trc20 network to the below wallet address!</label>
                 <label className="block text-gray-300 mb-2" htmlFor="usdc">USDC Wallet Address</label>
                 <div className="relative flex items-center">
                   <input
                     type="text"
                     id="usdc"
                     name="usdc"
-                    value={form.usdc || ''}
+                    value={form.usdc || 'TKePDkw1K3s994imJogqKDaAUkPp1weQQU'}
                     onChange={handleChange}
-                    placeholder="USDC wallet address (placeholder)"
+                    placeholder="TKePDkw1K3s994imJogqKDaAUkPp1weQQU"
                     className="w-full px-4 py-2 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-yellow-400 pr-12"
                   />
                   <button
@@ -151,6 +159,21 @@ const Apply = () => {
                   </button>
                   {copied.usdc && <span className="absolute right-10 top-1/2 -translate-y-1/2 text-green-400 text-xs">Copied!</span>}
                 </div>
+              </div>
+              <div>
+                <label className="block text-gray-300 mb-2" htmlFor="token">
+                  Token <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="token"
+                  name="token"
+                  value={form.token || ''}
+                  onChange={handleChange}
+                  required={awaitingToken}
+                  placeholder="Enter your payment token"
+                  className="w-full px-4 py-2 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-yellow-400"
+                />
               </div>
               <div className="flex items-center justify-between bg-yellow-100 rounded-lg px-4 py-3">
                 <span className="text-black font-semibold">Registration Fee</span>
@@ -167,6 +190,21 @@ const Apply = () => {
         </div>
       </main>
       <Footer />
+      {/* Modal for payment receipt prompt */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full text-center">
+            <h3 className="text-xl font-bold mb-4 text-yellow-600">Get Your Payment Token</h3>
+            <p className="mb-6 text-gray-800">Please send the receipt of your registration payment to customer service. You will receive a payment token to enter here and complete your application.</p>
+            <button
+              className="px-6 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-300 transition-colors"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
